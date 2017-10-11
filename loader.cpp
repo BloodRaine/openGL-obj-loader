@@ -1,26 +1,16 @@
 
-#ifdef __APPLE__ // if compiling on Mac OS
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#else // else compiling on Linux OS
-#include <GL/glut.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#endif
+#pragma once
 
 // include GLM libraries and matrix functions
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <iostream>
-#include <vector>
-#include <string> // std::string, std::stof
-#include <cstdio>
-#include <cmath>
-#include <stdlib.h>
-#include <time.h>
-#include <fstream> // std::ifstream
+#include <iostream> // for debg printing
+#include <vector>   // alows for std vectors
+#include <string>   // std::string, std::stof
+#include <cstdio>   // 
+#include <stdlib.h> // 
+#include <fstream>  // file io
 #include <sstream>
 
 using namespace std;
