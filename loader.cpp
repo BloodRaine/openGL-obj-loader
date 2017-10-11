@@ -35,11 +35,6 @@ struct Triangle {
     vector<Vertex> vertices;
 };
 
-vector<glm::vec3*> vertices;
-vector<glm::vec3*>  normals;
-vector<glm::vec2*> textures;
-vector<Triangle*>     faces;
-
 vector<float> split(const string s, char delim) {
     stringstream ss(s);
     string item;
@@ -67,7 +62,7 @@ glm::vec2* getTexture(string line) {
     return tex;
 }
 
-Triangle* createFace(string line) {
+Triangle* createFace(string line, vector<glm::vec3*> vertices, vector<glm::vec3*> normals, vector<glm::vec2*> textures) {
     Triangle* tri = new Triangle();
     stringstream ss(line);
     char delim = ' ';
@@ -110,7 +105,11 @@ Triangle* createFace(string line) {
     return tri;
 }
 
-void loadOBJ(string filename) {
+vector<Triangle*> loadOBJ(string filename) {
+    vector<Triangle*> faces;
+    vector<glm::vec3*> vertices;
+    vector<glm::vec3*> normals;
+    vector<glm::vec2*> textures;
     cout << "loading file" << endl;
     ifstream file(filename.c_str());
     string line;
@@ -132,17 +131,15 @@ void loadOBJ(string filename) {
             textures.push_back(getTexture(line));
             // add texture
 		} else if (op == "f") {
-            faces.push_back(createFace(line.substr(line.find_first_of(" "), line.length())));
+            faces.push_back(createFace(line.substr(line.find_first_of(" "), line.length()), vertices, normals, textures));
             // add face
 		} else if (op == "o") {
             // new object
             count++;
-            // if (count > 1) {
-            //     exit(0);
-            // }
         }
     }
     // cout << "num verts loaded: " << vertices.size() << endl;
     // cout << "num faces loaded: " << faces.size() << endl;
     file.close();
+    return faces;
 }
